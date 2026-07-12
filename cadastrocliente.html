@@ -1,0 +1,91 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="decoracao.css">
+    <title>Cadastro de Clientes</title>
+</head>
+<body>
+    <div class="container">
+    <h1>CADASTRO DE CLIENTES</h1>
+
+    <form id="cadcli" name="cadcli" method="post" action="cadcliente.php">
+
+        <div class="campo">
+            <input type="text"
+                   id="nomecliente"
+                   name="nomecliente"
+                   placeholder="Nome do Cliente"
+                   pattern="[A-Za-zÀ-ÿ\s]+"
+                   maxlength="40">
+        </div>
+
+        <div class="campo">
+            <input type="text"
+                   id="cpfcliente"
+                   name="cpfcliente"
+                   placeholder="CPF"
+                   pattern="[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}"
+                   maxlength="14">
+                   
+        </div>
+
+        <div class="campo">
+            <input type="email"
+                   id="emailcliente"
+                   name="emailcliente"
+                   placeholder="E-mail"
+                   maxlength="30">
+        </div>
+
+        <div class="campo">
+            <input type="tel"
+                   id="telefonecliente"
+                   name="telefonecliente"
+                   placeholder="(99)99999-9999"
+                   pattern="\(\d{2}\) \d{4,5}-\d{4}"
+                   maxlength="15">
+
+        </div>
+
+        <button type="submit" class="btn-enviar">
+            CADASTRAR
+        </button>
+
+        <button type="reset" class="btn-limpar">
+            LIMPAR
+        </button>
+
+    </form>
+</div>
+</body>
+</html>
+<script>
+    document.getElementById('cpfcliente').addEventListener('input', function(e) {
+  let value = e.target.value.replace(/\D/g, ''); 
+  
+  value = value.replace(/(\d{3})(\d)/, '$1.$2');
+  value = value.replace(/(\d{3})(\d)/, '$1.$2');
+  value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+  
+  e.target.value = value;
+});   
+
+document.getElementById('telefonecliente').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+
+        if (value.length > 10) {
+            value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        } else if (value.length > 5) {
+            value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+        } else if (value.length > 2) {
+            value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+        }
+        
+        e.target.value = value;
+    });   
+    document.getElementById('nomecliente').addEventListener('input', function(e) {
+    e.target.value = e.target.value.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+});
+</script>
